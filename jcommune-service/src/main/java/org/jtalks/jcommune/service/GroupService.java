@@ -15,6 +15,7 @@
 package org.jtalks.jcommune.service;
 
 import org.jtalks.common.model.entity.Group;
+import org.jtalks.common.model.entity.User;
 import org.jtalks.common.service.EntityService;
 import org.jtalks.common.service.exceptions.NotFoundException;
 import org.jtalks.jcommune.model.dto.SecurityGroupList;
@@ -69,5 +70,5 @@ public interface GroupService extends EntityService<Group> {
      */
     void saveGroup(Group selectedGroup);
 
-    Map<Group, Long> getAllGroupsWithNumOfUsers();
+    Map<Group,List<User>> getAllGroupsWithUsers();
 }

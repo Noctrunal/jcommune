@@ -1,6 +1,7 @@
 package org.jtalks.jcommune.web.controller;
 
 import org.jtalks.common.model.entity.Group;
+import org.jtalks.common.model.entity.User;
 import org.jtalks.common.model.permissions.GeneralPermission;
 import org.jtalks.jcommune.service.GroupService;
 import org.jtalks.jcommune.service.security.AclClassName;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,11 +40,11 @@ public class GroupController {
      * with checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
-    public ModelAndView showGroupsWithNumberOfUsers() {
-        Map<Group, Long> withNumOfUsers = groupService.getAllGroupsWithNumOfUsers();
-        for (Group group : withNumOfUsers.keySet()) {
+    public ModelAndView showGroupsWithUsers() {
+        Map<Group, List<User>> groupsWithUsers = groupService.getAllGroupsWithUsers();
+        for (Group group : groupsWithUsers.keySet()) {
             permissionService.checkPermission(group.getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
         }
-        return new ModelAndView("userGroups").addObject("groups", withNumOfUsers);
+        return new ModelAndView("userGroups").addObject("groups", groupsWithUsers);
     }
 }

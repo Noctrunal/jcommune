@@ -31,8 +31,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.javatalks.utils.general.Assert;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author alexander afanasiev
@@ -125,7 +124,18 @@ public class TransactionalGroupService extends AbstractTransactionalEntityServic
     }
 
     @Override
-    public Map<Group, Long> getAllGroupsWithNumOfUsers() {
-        return dao.getAllGroupsWithNumOfUsers();
+    public Map<Group, List<User>> getAllGroupsWithUsers() {
+        Map<Group,List<User>> groupsWithUsers = new LinkedHashMap<>();
+        List<Group> groups = dao.getAll();
+        Collections.sort(groups, new Comparator<Group>() {
+            @Override
+            public int compare(Group o1, Group o2) {
+                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+            }
+        });
+        for (Group group : groups) {
+            groupsWithUsers.put(group,group.getUsers());
+        }
+        return groupsWithUsers;
     }
 }

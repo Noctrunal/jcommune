@@ -31,7 +31,7 @@
     <c:forEach var="group" items="${groups}">
         <tr class="grid-row">
             <td><c:out value="${group.key.name}"/></td>
-            <td><c:out value="${group.value}"/></td>
+            <td><c:out value="${group.value.size()}"/></td>
         </tr>
     </c:forEach>
 </table>
