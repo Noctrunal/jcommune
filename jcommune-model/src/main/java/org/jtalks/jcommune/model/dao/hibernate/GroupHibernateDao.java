@@ -25,7 +25,9 @@ import org.jtalks.jcommune.model.dao.GroupDao;
 import org.jtalks.jcommune.model.dao.utils.SqlLikeEscaper;
 import ru.javatalks.utils.general.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hibernate implementation of {@link GroupDao}
@@ -140,5 +142,16 @@ public class GroupHibernateDao extends GenericDao<Group> implements GroupDao {
         // we should use lower case to search ignoring case
         query.setString("name", name);
         return query.list();
+    }
+
+    @Override
+    public Map<String, Long> getAllGroupsWithNumOfUsers() {
+        Map<String, Long> groupMap = new HashMap<>();
+        Query query = session().createSQLQuery("SELECT groups.NAME, count(*) FROM group_user_ref, groups WHERE groups.GROUP_ID  = group_user_ref.GROUP_ID GROUP BY groups.NAME");
+        List<Object[]> list = query.list();
+        for (Object[] objects : list) {
+            groupMap.put(objects[0].toString(), Long.valueOf(objects[1].toString()));
+        }
+        return groupMap;
     }
 }

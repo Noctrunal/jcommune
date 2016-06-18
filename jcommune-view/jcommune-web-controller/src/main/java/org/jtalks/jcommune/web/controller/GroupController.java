@@ -23,9 +23,8 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithNumberOfUsers() {
-        return new ModelAndView("userGroups").addObject("groups", groupService.getAll());
+        return new ModelAndView("userGroups").addObject("groups", groupService.getAllGroupsWithNumOfUsers());
     }
 }

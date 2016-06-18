@@ -17,6 +17,7 @@ package org.jtalks.jcommune.model.dao;
 import org.jtalks.common.model.entity.Group;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data access object for manipulating groups
@@ -56,4 +57,10 @@ public interface GroupDao extends org.jtalks.common.model.dao.GroupDao {
      * @throws IllegalArgumentException if name is null
      */
     List<Group> getByName(String name);
+
+    /**
+     * Get the Map of all group names with number of users inside group.
+     * @return Map
+     */
+    Map<String, Long> getAllGroupsWithNumOfUsers();
 }

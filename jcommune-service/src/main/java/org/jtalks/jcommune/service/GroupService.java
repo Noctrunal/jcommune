@@ -20,6 +20,7 @@ import org.jtalks.common.service.exceptions.NotFoundException;
 import org.jtalks.jcommune.model.dto.SecurityGroupList;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service for dealing with {@link Group} objects
@@ -67,4 +68,6 @@ public interface GroupService extends EntityService<Group> {
      * @throws IllegalArgumentException if group is null
      */
     void saveGroup(Group selectedGroup);
+
+    Map<String, Long> getAllGroupsWithNumOfUsers();
 }

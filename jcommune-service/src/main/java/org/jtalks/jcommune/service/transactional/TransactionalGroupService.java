@@ -32,6 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import ru.javatalks.utils.general.Assert;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author alexander afanasiev
@@ -121,5 +122,10 @@ public class TransactionalGroupService extends AbstractTransactionalEntityServic
         Assert.throwIfNull(group, "group");
         group.setName(group.getName().trim());
         dao.saveOrUpdate(group);
+    }
+
+    @Override
+    public Map<String, Long> getAllGroupsWithNumOfUsers() {
+        return dao.getAllGroupsWithNumOfUsers();
     }
 }
