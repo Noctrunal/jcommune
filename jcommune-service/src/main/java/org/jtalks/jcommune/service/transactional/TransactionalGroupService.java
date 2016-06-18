@@ -125,7 +125,7 @@ public class TransactionalGroupService extends AbstractTransactionalEntityServic
     }
 
     @Override
-    public Map<String, Long> getAllGroupsWithNumOfUsers() {
+    public Map<Group, Long> getAllGroupsWithNumOfUsers() {
         return dao.getAllGroupsWithNumOfUsers();
     }
 }

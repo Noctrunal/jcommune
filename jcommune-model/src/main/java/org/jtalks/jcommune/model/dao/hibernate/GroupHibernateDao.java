@@ -113,7 +113,7 @@ public class GroupHibernateDao extends GenericDao<Group> implements GroupDao {
      */
     @Override
     public List<Group> getGroupsByIds(List<Long> ids) {
-        return (List<Group>)session().getNamedQuery("getGroupsByIds")
+        return (List<Group>) session().getNamedQuery("getGroupsByIds")
                 .setParameterList("ids", ids).list();
     }
 
@@ -145,13 +145,23 @@ public class GroupHibernateDao extends GenericDao<Group> implements GroupDao {
     }
 
     @Override
-    public Map<String, Long> getAllGroupsWithNumOfUsers() {
-        Map<String, Long> groupMap = new HashMap<>();
+    public Map<Group, Long> getAllGroupsWithNumOfUsers() {
+        Map<Group, Long> groupMap = new HashMap<>();
         Query query = session().createSQLQuery("SELECT groups.NAME, count(*) FROM group_user_ref, groups WHERE groups.GROUP_ID  = group_user_ref.GROUP_ID GROUP BY groups.NAME");
         List<Object[]> list = query.list();
         for (Object[] objects : list) {
-            groupMap.put(objects[0].toString(), Long.valueOf(objects[1].toString()));
+            groupMap.put(getGroupByName(objects[0].toString()), Long.valueOf(objects[1].toString()));
         }
         return groupMap;
     }
+//    @Override
+//    public Map<String, Long> getAllGroupsWithNumOfUsers() {
+//        Map<String, Long> groupMap = new HashMap<>();
+//        Query query = session().createSQLQuery("SELECT groups.NAME, count(*) FROM group_user_ref, groups WHERE groups.GROUP_ID  = group_user_ref.GROUP_ID GROUP BY groups.NAME");
+//        List<Object[]> list = query.list();
+//        for (Object[] objects : list) {
+//            groupMap.put(objects[0].toString(), Long.valueOf(objects[1].toString()));
+//        }
+//        return groupMap;
+//    }
 }

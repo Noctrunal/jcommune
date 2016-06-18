@@ -62,5 +62,5 @@ public interface GroupDao extends org.jtalks.common.model.dao.GroupDao {
      * Get the Map of all group names with number of users inside group.
      * @return Map
      */
-    Map<String, Long> getAllGroupsWithNumOfUsers();
+    Map<Group, Long> getAllGroupsWithNumOfUsers();
 }

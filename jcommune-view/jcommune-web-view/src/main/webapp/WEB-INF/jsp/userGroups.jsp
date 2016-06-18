@@ -30,7 +30,7 @@
 <table class="table table-bordered grid-table">
     <c:forEach var="group" items="${groups}">
         <tr class="grid-row">
-            <td><c:out value="${group.key}"/></td>
+            <td><c:out value="${group.key.name}"/></td>
             <td><c:out value="${group.value}"/></td>
         </tr>
     </c:forEach>

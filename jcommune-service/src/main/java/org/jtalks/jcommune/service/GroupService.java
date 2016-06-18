@@ -69,5 +69,5 @@ public interface GroupService extends EntityService<Group> {
      */
     void saveGroup(Group selectedGroup);
 
-    Map<String, Long> getAllGroupsWithNumOfUsers();
+    Map<Group, Long> getAllGroupsWithNumOfUsers();
 }
