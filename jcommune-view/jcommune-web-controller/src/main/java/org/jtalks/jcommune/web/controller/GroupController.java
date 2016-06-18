@@ -36,15 +36,25 @@ public class GroupController {
     }
 
     /**
-     * Find groups with number of users inside them
-     * with checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}
+     * Find all groups with list of users inside them
+     * with checking permission using {@link #checkPermission(Map)}
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
         Map<Group, List<User>> groupsWithUsers = groupService.getAllGroupsWithUsers();
-        for (Group group : groupsWithUsers.keySet()) {
-            permissionService.checkPermission(group.getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
-        }
+        checkPermission(groupsWithUsers);
         return new ModelAndView("userGroups").addObject("groups", groupsWithUsers);
+    }
+
+    /**
+     * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}
+     */
+    private void checkPermission(Map<Group, List<User>> groupsWithUsers) {
+        for (Map.Entry<Group, List<User>> pair : groupsWithUsers.entrySet()) {
+            permissionService.checkPermission(pair.getKey().getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
+            for (User user : pair.getValue()) {
+                permissionService.checkPermission(user.getId(), AclClassName.USER, GeneralPermission.ADMIN);
+            }
+        }
     }
 }
