@@ -50,11 +50,8 @@ public class GroupController {
      * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}
      */
     private void checkPermission(Map<Group, List<User>> groupsWithUsers) {
-        for (Map.Entry<Group, List<User>> pair : groupsWithUsers.entrySet()) {
-            permissionService.checkPermission(pair.getKey().getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
-            for (User user : pair.getValue()) {
-                permissionService.checkPermission(user.getId(), AclClassName.USER, GeneralPermission.ADMIN);
-            }
+        for (Group group : groupsWithUsers.keySet()) {
+            permissionService.checkPermission(group.getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
         }
     }
 }

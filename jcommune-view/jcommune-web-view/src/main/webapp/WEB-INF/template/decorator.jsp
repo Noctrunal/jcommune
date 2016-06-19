@@ -129,6 +129,8 @@ in the future.
 
   <c:otherwise>
     <link rel="stylesheet" type="text/css" media="screen"
+          href="${pageContext.request.contextPath}/resources/css/lib/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
           href="${pageContext.request.contextPath}/resources/css/app/editor.css"/>
     <link rel="stylesheet" type="text/css" media="screen"
           href="${pageContext.request.contextPath}/resources/css/lib/fonts-googleapis-com.css"/>
@@ -186,6 +188,7 @@ in the future.
     <script src="${pageContext.request.contextPath}/resources/javascript/lib/html5placeholder.jquery.js"></script>
     <script src="${pageContext.request.contextPath}/resources/javascript/lib/json2.js"></script>
     <script src="${pageContext.request.contextPath}/resources/javascript/lib/chosen.jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/javascript/lib/datatables/jquery.dataTables.min.js"></script>
 
     <script src="${pageContext.request.contextPath}/resources/javascript/app/keymaps.js"></script>
     <script src="${pageContext.request.contextPath}/resources/javascript/app/dialog.js"></script>
@@ -204,6 +207,7 @@ in the future.
     <script src="${pageContext.request.contextPath}/resources/javascript/app/search.js"></script>
     <script src="${pageContext.request.contextPath}/resources/javascript/app/events.js"></script>
     <script src="${pageContext.request.contextPath}/resources/javascript/app/banner.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/javascript/app/userGroupsDataTables.js"></script>
 
 
     <%--Should be added to every page because we can use Administrator mode on each page to

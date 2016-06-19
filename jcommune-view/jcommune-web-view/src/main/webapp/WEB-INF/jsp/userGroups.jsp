@@ -27,14 +27,25 @@
     </title>
 </head>
 <body>
-<table class="table table-bordered grid-table">
-    <c:forEach var="group" items="${groups}">
-        <tr class="grid-row">
-            <td><c:out value="${group.key.name}"/></td>
-            <td><c:out value="${group.value.size()}"/></td>
-        </tr>
-    </c:forEach>
-</table>
 
+<div class="container">
+    <table class="table table-bordered grid-table display" id="userGroups">
+        <thead>
+        <tr>
+            <th><spring:message code="label.group.name"/></th>
+            <th><spring:message code="label.group.numberOfMembers"/></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <c:forEach var="group" items="${groups}">
+            <tr>
+                <td><c:out value="${group.key.name}"/></td>
+                <td><c:out value="${group.value.size()}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
