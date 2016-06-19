@@ -15,6 +15,23 @@
 
 $(function () {
     $('#userGroups').DataTable({
+        'ajax': {
+            'url': $root + '/ajax/group/list',
+            'dataSrc': ''
+        },
+        'columns': [
+            {
+                'data': 'name'
+            },
+            {
+                'data': 'users',
+                'render': function (data, type, row) {
+                    if (type == 'display') {
+                        return row.users.length;
+                    }
+                }
+            }
+        ],
         'paging': false,
         'ordering': false,
         'info': false,

@@ -14,6 +14,7 @@
  */
 package org.jtalks.jcommune.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.google.common.annotations.VisibleForTesting;
 import org.joda.time.DateTime;
 import org.jtalks.common.model.entity.Group;
@@ -111,6 +112,12 @@ public class JCUser extends User {
      */
     public void removeContact(UserContact contact) {
         this.getContacts().remove(contact);
+    }
+
+    @JsonBackReference
+    @Override
+    public List<Group> getGroups() {
+        return super.getGroups();
     }
 
     /**

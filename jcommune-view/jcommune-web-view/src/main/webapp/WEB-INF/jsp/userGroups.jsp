@@ -36,15 +36,6 @@
             <th><spring:message code="label.group.numberOfMembers"/></th>
         </tr>
         </thead>
-
-        <tbody>
-        <c:forEach var="group" items="${groups}">
-            <tr>
-                <td><c:out value="${group.key.name}"/></td>
-                <td><c:out value="${group.value.size()}"/></td>
-            </tr>
-        </c:forEach>
-        </tbody>
     </table>
 </div>
 </body>
