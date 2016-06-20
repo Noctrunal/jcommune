@@ -16,10 +16,7 @@ package org.jtalks.jcommune.web.dto;
 
 import org.jtalks.common.model.entity.Group;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Andrei Alikov
@@ -29,14 +26,20 @@ import java.util.List;
 public class GroupDto {
     private long id;
     private String name;
+    private List<UserDto> users = new LinkedList<>();
 
     /**
      * Instantiates new GroupDto object based on the Group object
      * @param group source data for the DTO object
      */
     public GroupDto(Group group) {
-        this.id = group.getId();
-        this.name = group.getName();
+        if (Objects.nonNull(group)) {
+            this.id = group.getId();
+            this.name = group.getName();
+            this.users = UserDto.convertUserListToDto(group.getUsers());
+        } else {
+            new GroupDto();
+        }
     }
 
     /**
@@ -95,14 +98,15 @@ public class GroupDto {
      */
     public static List<GroupDto> convertGroupList(List<Group> groups, boolean sortByName) {
         List<GroupDto> groupDtoList = new ArrayList<GroupDto>();
-        for (Group group: groups) {
-            groupDtoList.add(new GroupDto(group));
-        }
+        if (Objects.nonNull(groups)){
+            for (Group group: groups) {
+                groupDtoList.add(new GroupDto(group));
+            }
 
-        if (sortByName) {
-            Collections.sort(groupDtoList, BY_NAME_COMPARATOR);
+            if (sortByName) {
+                Collections.sort(groupDtoList, BY_NAME_COMPARATOR);
+            }
         }
-
         return groupDtoList;
     }
 
@@ -113,7 +117,15 @@ public class GroupDto {
     public static Comparator<GroupDto> BY_NAME_COMPARATOR = new Comparator<GroupDto>() {
         @Override
         public int compare(GroupDto o1, GroupDto o2) {
-            return o1.getName().compareTo(o2.getName());
+            return o1.getName().compareToIgnoreCase(o2.getName());
         }
     };
+
+    public List<UserDto> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserDto> users) {
+        this.users = users;
+    }
 }

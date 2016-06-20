@@ -122,20 +122,4 @@ public class TransactionalGroupService extends AbstractTransactionalEntityServic
         group.setName(group.getName().trim());
         dao.saveOrUpdate(group);
     }
-
-    @Override
-    public Map<Group, List<User>> getAllGroupsWithUsers() {
-        Map<Group,List<User>> groupsWithUsers = new LinkedHashMap<>();
-        List<Group> groups = dao.getAll();
-        Collections.sort(groups, new Comparator<Group>() {
-            @Override
-            public int compare(Group o1, Group o2) {
-                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
-            }
-        });
-        for (Group group : groups) {
-            groupsWithUsers.put(group,group.getUsers());
-        }
-        return groupsWithUsers;
-    }
 }
