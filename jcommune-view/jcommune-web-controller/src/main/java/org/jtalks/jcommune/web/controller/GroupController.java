@@ -19,6 +19,7 @@ import org.jtalks.common.model.permissions.GeneralPermission;
 import org.jtalks.jcommune.service.GroupService;
 import org.jtalks.jcommune.service.security.AclClassName;
 import org.jtalks.jcommune.service.security.PermissionService;
+import org.jtalks.jcommune.web.dto.GroupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class GroupController {
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
-        checkPermission(groupService.getAll());
+//        checkPermission(groupService.getAll());
         return new ModelAndView("userGroups");
     }
 
@@ -63,8 +64,8 @@ public class GroupController {
      * with checking permission using {@link #checkPermission(List)} method.
      */
     @RequestMapping(value = "/ajax/group/list", method = RequestMethod.GET)
-    public @ResponseBody List<Group> getGroupsWithUsers() {
-        List<Group> groups = groupService.getAll();
+    public @ResponseBody List<GroupDto> getGroupsWithUsers() {
+        List<GroupDto> groups = GroupDto.convertGroupList(groupService.getAll(),true);
         checkPermission(groups);
         return groups;
     }
@@ -72,8 +73,8 @@ public class GroupController {
     /**
      * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}.
      */
-    private void checkPermission(List<Group> groups) {
-        for (Group group : groups) {
+    private void checkPermission(List<GroupDto> groups) {
+        for (GroupDto group : groups) {
             permissionService.checkPermission(group.getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
         }
     }
