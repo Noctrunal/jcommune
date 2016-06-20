@@ -1,3 +1,17 @@
+/**
+ * Copyright (C) 2011  JTalks.org Team
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 package org.jtalks.jcommune.web.controller;
 
 import org.jtalks.common.model.entity.Group;
@@ -35,14 +49,19 @@ public class GroupController {
     }
 
     /**
-     * Find all groups with list of users inside them
-     * with checking permission using {@link #checkPermission(List)}
+     * Get user groups page
+     * with checking permission using {@link #checkPermission(List)} method.
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
+        checkPermission(groupService.getAll());
         return new ModelAndView("userGroups");
     }
 
+    /**
+     * Get user groups names with number of members in JSON
+     * with checking permission using {@link #checkPermission(List)} method.
+     */
     @RequestMapping(value = "/ajax/group/list", method = RequestMethod.GET)
     public @ResponseBody List<Group> getGroupsWithUsers() {
         List<Group> groups = groupService.getAll();
@@ -51,7 +70,7 @@ public class GroupController {
     }
 
     /**
-     * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}
+     * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}.
      */
     private void checkPermission(List<Group> groups) {
         for (Group group : groups) {

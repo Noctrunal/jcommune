@@ -11,6 +11,7 @@
     <css>/resources/css/lib/prettify.css</css>
     <css>/resources/css/lib/prettyPhoto.css</css>
     <css>/resources/css/lib/inline.css</css>
+    <css>/resources/css/lib/jquery.DataTables.min.css</css>
     <!--custom css class need add to last (after bootstrap)-->
     <css>/resources/css/app/application.css</css>
   </group>
@@ -29,6 +30,7 @@
     <js>/resources/javascript/lib/prettify/prettify.js</js>
     <js>/resources/javascript/lib/prettify/lang-*.js</js>
     <js>/resources/javascript/lib/wysiwyg-bbcode/*.js</js>
+    <js>/resources/javascript/lib/datatables/jquery.DataTables.min.js</js>
     <js>/resources/javascript/lib/*.js</js>
   </group>
 
@@ -55,6 +57,7 @@
     <js>/resources/javascript/app/banner.js</js>
     <js>/resources/javascript/app/forumAdministration.js</js>
     <js>/resources/javascript/app/editPermissions.js</js>
+    <js>/resources/javascript/app/userGroupsDataTables.js</js>
   </group>
 
   <group name="pm">

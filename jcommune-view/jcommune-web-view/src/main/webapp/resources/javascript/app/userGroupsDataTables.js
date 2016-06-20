@@ -24,7 +24,8 @@ $(function () {
                 'data': 'name'
             },
             {
-                'data': 'users',
+                'defaultContent': '',
+                'orderable': false,
                 'render': function (data, type, row) {
                     if (type == 'display') {
                         return row.users.length;
