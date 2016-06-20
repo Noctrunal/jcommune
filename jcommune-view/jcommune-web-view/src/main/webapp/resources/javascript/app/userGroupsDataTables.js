@@ -17,7 +17,7 @@ $(function () {
     $('#userGroups').DataTable({
         'ajax': {
             'url': $root + '/ajax/group/list',
-            'dataSrc': ''
+            'dataSrc': 'result'
         },
         'columns': [
             {

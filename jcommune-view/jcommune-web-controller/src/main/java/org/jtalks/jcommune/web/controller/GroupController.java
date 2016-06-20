@@ -14,8 +14,9 @@
  */
 package org.jtalks.jcommune.web.controller;
 
-import org.jtalks.common.model.entity.Group;
 import org.jtalks.common.model.permissions.GeneralPermission;
+import org.jtalks.jcommune.plugin.api.web.dto.json.JsonResponse;
+import org.jtalks.jcommune.plugin.api.web.dto.json.JsonResponseStatus;
 import org.jtalks.jcommune.service.GroupService;
 import org.jtalks.jcommune.service.security.AclClassName;
 import org.jtalks.jcommune.service.security.PermissionService;
@@ -64,10 +65,11 @@ public class GroupController {
      * with checking permission using {@link #checkPermission(List)} method.
      */
     @RequestMapping(value = "/ajax/group/list", method = RequestMethod.GET)
-    public @ResponseBody List<GroupDto> getGroupsWithUsers() {
+    @ResponseBody
+    public JsonResponse getGroupsWithUsers() {
         List<GroupDto> groups = GroupDto.convertGroupList(groupService.getAll(),true);
         checkPermission(groups);
-        return groups;
+        return new JsonResponse(JsonResponseStatus.SUCCESS, groups);
     }
 
     /**
