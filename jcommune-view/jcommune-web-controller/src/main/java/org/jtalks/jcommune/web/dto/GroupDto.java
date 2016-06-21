@@ -33,7 +33,7 @@ public class GroupDto {
      * @param group source data for the DTO object
      */
     public GroupDto(Group group) {
-        if (Objects.nonNull(group)) {
+        if (group != null) {
             this.id = group.getId();
             this.name = group.getName();
             this.users = UserDto.convertUserListToDto(group.getUsers());
@@ -98,7 +98,7 @@ public class GroupDto {
      */
     public static List<GroupDto> convertGroupList(List<Group> groups, boolean sortByName) {
         List<GroupDto> groupDtoList = new ArrayList<GroupDto>();
-        if (Objects.nonNull(groups)){
+        if (groups != null){
             for (Group group: groups) {
                 groupDtoList.add(new GroupDto(group));
             }

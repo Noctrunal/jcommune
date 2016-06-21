@@ -40,6 +40,7 @@ import java.util.List;
 
 @Controller
 public class GroupController {
+    private final static String GROUP_PAGE = "userGroups";
     private final GroupService groupService;
 
     private final PermissionService permissionService;
@@ -57,7 +58,7 @@ public class GroupController {
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
 //        checkPermission(groupService.getAll());
-        return new ModelAndView("userGroups");
+        return new ModelAndView(GROUP_PAGE);
     }
 
     /**
