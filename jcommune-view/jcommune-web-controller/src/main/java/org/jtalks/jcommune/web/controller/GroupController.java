@@ -14,6 +14,7 @@
  */
 package org.jtalks.jcommune.web.controller;
 
+import org.jtalks.common.model.entity.Group;
 import org.jtalks.common.model.permissions.GeneralPermission;
 import org.jtalks.jcommune.plugin.api.web.dto.json.JsonResponse;
 import org.jtalks.jcommune.plugin.api.web.dto.json.JsonResponseStatus;
@@ -53,31 +54,31 @@ public class GroupController {
 
     /**
      * Get user groups page
-     * with checking permission using {@link #checkPermission(List)} method.
+     * with checking permission using {@link #checkPermission()} method.
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
-//        checkPermission(groupService.getAll());
+        checkPermission();
         return new ModelAndView(GROUP_PAGE);
     }
 
     /**
      * Get user groups names with number of members in JSON
-     * with checking permission using {@link #checkPermission(List)} method.
+     * with checking permission using {@link #checkPermission()} method.
      */
     @RequestMapping(value = "/ajax/group/list", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse getGroupsWithUsers() {
         List<GroupDto> groups = GroupDto.convertGroupList(groupService.getAll(),true);
-        checkPermission(groups);
+        checkPermission();
         return new JsonResponse(JsonResponseStatus.SUCCESS, groups);
     }
 
     /**
      * Checking permission using {@link org.jtalks.jcommune.service.security.PermissionService}.
      */
-    private void checkPermission(List<GroupDto> groups) {
-        for (GroupDto group : groups) {
+    private void checkPermission() {
+        for (Group group : groupService.getAll()) {
             permissionService.checkPermission(group.getId(), AclClassName.GROUP, GeneralPermission.ADMIN);
         }
     }
