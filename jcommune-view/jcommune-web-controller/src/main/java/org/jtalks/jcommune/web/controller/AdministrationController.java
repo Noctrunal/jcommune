@@ -95,8 +95,7 @@ public class AdministrationController {
     @RequestMapping(value = "/admin/enter", method = RequestMethod.GET)
     public String enterAdministrationMode(HttpServletRequest request) {
         if (componentService.getComponentOfForum() != null) {
-            long componentId = componentService.getComponentOfForum().getId();
-            componentService.checkPermissionsForComponent(componentId);
+            checkForAdminPermissions();
         }
         request.getSession().setAttribute(ADMIN_ATTRIBUTE_NAME, true);
 
@@ -259,10 +258,21 @@ public class AdministrationController {
      */
     @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     public ModelAndView showGroupsWithUsers() {
-        long forumId = componentService.getComponentOfForum().getId();
-        componentService.checkPermissionsForComponent(forumId);
+        checkForAdminPermissions();
         List<GroupAdministrationDto> groupAdministrationDtos = groupService.getGroupNamesWithCountOfUsers();
         return new ModelAndView("groupAdministration").addObject("groups",groupAdministrationDtos);
+    }
+
+    /**
+     * Register {@link org.jtalks.common.model.entity.Group} from populated in form {@link GroupAdministrationDto}.
+     *
+     * @param groupAdministrationDto {@link GroupAdministrationDto} populated in form
+     * @return redirect to / if registration successful or back to "/registration" if failed
+     */
+    @RequestMapping(value = "/group/new", method = RequestMethod.POST)
+    public ModelAndView registerUser(@Valid @ModelAttribute("newGroup") GroupAdministrationDto groupAdministrationDto) {
+        checkForAdminPermissions();
+        return new ModelAndView("redirect: /group/list");
     }
 
     /**
@@ -274,5 +284,12 @@ public class AdministrationController {
         return "redirect:" + request.getHeader("Referer");
     }
 
-
+    /**
+     * Check if currently logged user has permissions for administrative
+     * functions for forum
+     */
+    private void checkForAdminPermissions(){
+        long forumId = componentService.getComponentOfForum().getId();
+        componentService.checkPermissionsForComponent(forumId);
+    }
 }

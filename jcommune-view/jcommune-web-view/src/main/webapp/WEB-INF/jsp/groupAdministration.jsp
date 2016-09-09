@@ -29,6 +29,7 @@
 
 <div class="container">
     <h2><spring:message code="label.administration.userGroups"/> </h2>
+    <input type="submit" class="btn btn-primary" value="<spring:message code="label.group.creation"/>"/>
     <table class="table table-bordered grid-table display" id="userGroups">
         <thead>
         <tr>

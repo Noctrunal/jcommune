@@ -14,6 +14,11 @@
  */
 package org.jtalks.jcommune.model.dto;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.jtalks.common.model.entity.Group;
+import org.jtalks.jcommune.model.validation.annotations.Unique;
+
 /**
  * DTO class for user group containing name and number of users in the group
  *
@@ -21,13 +26,22 @@ package org.jtalks.jcommune.model.dto;
  */
 
 public class GroupAdministrationDto {
+    public static final int GROUP_NAME_MIN_LENGTH = 1;
+    public static final int GROUP_DESCRIPTION_MIN_LENGTH = 0;
 
+    @NotBlank()
+    @Length(min = GROUP_NAME_MIN_LENGTH, max = Group.GROUP_NAME_MAX_LENGTH, message = "{group.name.illegal_length}")
+    @Unique(entity = Group.class, field = "name", message = "{group.already_exists}", ignoreCase = true)
     private String name;
+
+    @Length(min = GROUP_DESCRIPTION_MIN_LENGTH, max = Group.GROUP_DESCRIPTION_MAX_LENGTH, message = "{group.description.illegal_length}")
+    private String description;
+
     private long numberOfUsers;
 
     public GroupAdministrationDto(String name, int count) {
-            this.name = name;
-            this.numberOfUsers = count;
+        this.name = name;
+        this.numberOfUsers = count;
     }
 
     public String getName() {
@@ -38,6 +52,14 @@ public class GroupAdministrationDto {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public long getNumberOfUsers() {
         return numberOfUsers;
     }
@@ -45,5 +67,4 @@ public class GroupAdministrationDto {
     public void setNumberOfUsers(long numberOfUsers) {
         this.numberOfUsers = numberOfUsers;
     }
-
 }
